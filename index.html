@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>MAISON NOIR · Luxury Fashion Atelier (Demo)</title>
+  <meta name="description" content="MAISON NOIR, a luxury clothing demo storefront built with HTML, CSS and vanilla JavaScript." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="announcement" role="note">Complimentary shipping across India on orders above ₹5,000 · Demo storefront</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <button class="icon-btn menu-toggle" type="button" data-action="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+    <a class="logo" href="#/home" aria-label="MAISON NOIR home"><span class="logo-mark" aria-hidden="true">✦</span>MAISON NOIR</a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#/home" data-route="home">Home</a>
+      <div class="has-mega">
+        <a href="#/shop" data-route="shop" aria-haspopup="true">Shop All</a>
+        <div class="mega-menu">
+          <div>
+            <h4>Men</h4>
+            <a href="#/men?cat=Outerwear">Outerwear</a>
+            <a href="#/men?cat=Tailoring">Tailoring</a>
+            <a href="#/men?cat=Shirts">Shirts</a>
+            <a href="#/men?cat=Footwear">Footwear</a>
+          </div>
+          <div>
+            <h4>Women</h4>
+            <a href="#/women?cat=Dresses">Dresses</a>
+            <a href="#/women?cat=Outerwear">Outerwear</a>
+            <a href="#/women?cat=Knitwear">Knitwear</a>
+            <a href="#/women?cat=Trousers">Trousers</a>
+          </div>
+          <div>
+            <h4>Essentials</h4>
+            <a href="#/shop?cat=Accessories">Accessories</a>
+            <a href="#/shop?cat=Knitwear">Knitwear</a>
+            <a href="#/shop?cat=Footwear">Footwear</a>
+          </div>
+          <div class="mega-feature">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Editorial look from the autumn edit" />
+            <p>The Autumn Edit</p>
+            <a href="#/shop">Explore →</a>
+          </div>
+        </div>
+      </div>
+      <a href="#/men" data-route="men">Men</a>
+      <a href="#/women" data-route="women">Women</a>
+      <a href="#/about" data-route="about">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-action="search-open" aria-label="Search">⌕</button>
+      <a class="icon-btn hide-xs" href="#/wishlist" aria-label="Wishlist">
+        <span aria-hidden="true">♡</span><span class="badge-count" id="wishCount">0</span>
+      </a>
+      <a class="icon-btn" href="#/cart" aria-label="Shopping bag">
+        <span aria-hidden="true">🛍</span><span class="badge-count" id="cartCount">0</span>
+      </a>
+      <button class="icon-btn" type="button" data-action="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">☾</button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#/home">Home</a>
+    <a href="#/shop">Shop All</a>
+    <a href="#/men">Men</a>
+    <a href="#/women">Women</a>
+    <a href="#/wishlist">Wishlist</a>
+    <a href="#/cart">Bag &amp; Checkout</a>
+    <a href="#/about">About &amp; Contact</a>
+  </nav>
+</div>
+
+<!-- Search overlay -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Search products" aria-hidden="true">
+  <div class="search-panel">
+    <div class="search-head">
+      <input type="search" id="searchInput" placeholder="Search coats, dresses, shoes…" aria-label="Search products" autocomplete="off" />
+      <button class="icon-btn" type="button" data-action="search-close" aria-label="Close search">✕</button>
+    </div>
+    <ul class="search-results" id="searchResults"></ul>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============ 1. HOME ============ -->
+  <section class="page" id="page-home" aria-label="Home">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-media" aria-hidden="true">
+        <div class="hero-fallback"></div>
+        <video id="heroVideo" class="hero-video" muted loop playsinline autoplay preload="auto"
+          poster="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1800&q=80"></video>
+      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <p class="eyebrow">Autumn / Winter Atelier</p>
+        <h1 id="heroTitle">Quiet Luxury,<br />Cut to Last.</h1>
+        <p class="hero-lead">Considered tailoring, cashmere and sculpted silhouettes, made to be worn for years.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#/shop">Shop the Collection</a>
+          <a class="btn btn-ghost" href="#/women">Women's Edit</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="collHead">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Featured collections</p>
+            <h2 id="collHead">Three Edits</h2>
+          </div>
+          <a class="btn btn-outline" href="#/shop">View all</a>
+        </div>
+        <div class="collections-grid">
+          <a class="tile reveal" href="#/men">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80" alt="Man in a tailored charcoal suit" loading="lazy" />
+            <div class="tile-cap"><span class="eyebrow">Collection 01</span><h3>Men's Tailoring</h3></div>
+          </a>
+          <a class="tile reveal" href="#/women">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80" alt="Woman wearing a flowing ivory dress" loading="lazy" />
+            <div class="tile-cap"><span class="eyebrow">Collection 02</span><h3>Women's Evening</h3></div>
+          </a>
+          <a class="tile reveal" href="#/shop?cat=Outerwear">
+            <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1000&q=80" alt="Long camel wool coat on a model" loading="lazy" />
+            <div class="tile-cap"><span class="eyebrow">Collection 03</span><h3>Outerwear</h3></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="trendHead">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Trending now</p>
+            <h2 id="trendHead">Most Coveted</h2>
+          </div>
+          <a class="btn btn-outline" href="#/shop?sort=featured">Shop trending</a>
+        </div>
+        <div class="card-grid" id="trendingGrid"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div class="reveal">
+          <img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?auto=format&fit=crop&w=1000&q=80" alt="Neatly folded knitwear and shirts on a rail" loading="lazy" />
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Our story</p>
+          <h2>Built Slowly, Worn Long</h2>
+          <p class="lead">MAISON NOIR began as a small tailoring studio with one principle: fewer pieces, better made. Every silhouette is drafted in-house, every fabric is chosen for how it ages, and every seam is designed to be let out, altered and handed down.</p>
+          <a class="btn btn-outline" href="#/about">Read our story</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-pad-sm">
+      <div class="container">
+        <div class="promo reveal">
+          <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" />
+          <div class="promo-content">
+            <p class="eyebrow">Accessories edit</p>
+            <h2>Finishing Touches</h2>
+            <p>Quilted leather, monogram silk and minimal timepieces. Use the demo code <strong>WELCOME15</strong> at the bag for 15% off.</p>
+            <a class="btn btn-primary" href="#/shop?cat=Accessories">Shop accessories</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ 2. SHOP ALL ============ -->
+  <section class="page" id="page-shop" aria-label="Shop All">
+    <header class="page-banner">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80" alt="" />
+      <div class="banner-overlay"></div>
+      <div class="container banner-content">
+        <p class="eyebrow">The complete edit</p>
+        <h1>Shop All</h1>
+      </div>
+    </header>
+    <section class="section section-tight">
+      <div class="container">
+        <div class="toolbar" role="search">
+          <div class="field"><label for="shopSearch">Search</label><input id="shopSearch" type="search" placeholder="Search pieces" autocomplete="off" /></div>
+          <div class="field"><label for="shopCat">Category</label><select id="shopCat"></select></div>
+          <div class="field">
+            <label for="shopSort">Sort by</label>
+            <select id="shopSort">
+              <option value="featured">Featured</option>
+              <option value="new">New arrivals</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </div>
+          <div class="field"><label for="shopPrice">Max price <span id="shopPriceOut"></span></label><input id="shopPrice" type="range" min="0" max="50000" step="500" /></div>
+          <button class="btn btn-outline" type="button" id="shopReset">Reset</button>
+        </div>
+        <p class="result-count" id="shopCount" aria-live="polite"></p>
+        <div class="card-grid" id="shopGrid"></div>
+        <div class="empty-state" id="shopEmpty" hidden>
+          <h3>No pieces match</h3>
+          <p>Try a different search, or reset the filters.</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ 3. MEN ============ -->
+  <section class="page" id="page-men" aria-label="Men's Collection">
+    <header class="page-banner">
+      <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1800&q=80" alt="" />
+      <div class="banner-overlay"></div>
+      <div class="container banner-content">
+        <p class="eyebrow">Men's collection</p>
+        <h1>Tailoring &amp; Essentials</h1>
+        <p class="lead">Sharp shoulders, honest cloth and quiet details.</p>
+      </div>
+    </header>
+    <section class="section section-tight">
+      <div class="container">
+        <div class="toolbar" role="search">
+          <div class="field"><label for="menSearch">Search</label><input id="menSearch" type="search" placeholder="Search menswear" autocomplete="off" /></div>
+          <div class="field"><label for="menCat">Category</label><select id="menCat"></select></div>
+          <div class="field">
+            <label for="menSort">Sort by</label>
+            <select id="menSort">
+              <option value="featured">Featured</option>
+              <option value="new">New arrivals</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </div>
+          <div class="field"><label for="menPrice">Max price <span id="menPriceOut"></span></label><input id="menPrice" type="range" min="0" max="50000" step="500" /></div>
+          <button class="btn btn-outline" type="button" id="menReset">Reset</button>
+        </div>
+        <p class="result-count" id="menCount" aria-live="polite"></p>
+        <div class="card-grid" id="menGrid"></div>
+        <div class="empty-state" id="menEmpty" hidden><h3>No pieces match</h3><p>Try a different search, or reset the filters.</p></div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ 4. WOMEN ============ -->
+  <section class="page" id="page-women" aria-label="Women's Collection">
+    <header class="page-banner">
+      <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1800&q=80" alt="" />
+      <div class="banner-overlay"></div>
+      <div class="container banner-content">
+        <p class="eyebrow">Women's collection</p>
+        <h1>The Evening Edit</h1>
+        <p class="lead">Fluid silk, sculpted wool and considered cuts.</p>
+      </div>
+    </header>
+    <section class="section section-tight">
+      <div class="container">
+        <div class="seasonal reveal">
+          <a href="#/women?cat=Dresses" class="season-card"><span class="eyebrow">Season 01</span><strong>Evening Dresses</strong></a>
+          <a href="#/women?cat=Outerwear" class="season-card"><span class="eyebrow">Season 02</span><strong>Autumn Outerwear</strong></a>
+          <a href="#/women?cat=Knitwear" class="season-card"><span class="eyebrow">Season 03</span><strong>Cashmere Knits</strong></a>
+        </div>
+        <div class="toolbar" role="search">
+          <div class="field"><label for="womenSearch">Search</label><input id="womenSearch" type="search" placeholder="Search womenswear" autocomplete="off" /></div>
+          <div class="field"><label for="womenCat">Category</label><select id="womenCat"></select></div>
+          <div class="field">
+            <label for="womenSort">Sort by</label>
+            <select id="womenSort">
+              <option value="featured">Featured</option>
+              <option value="new">New arrivals</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </div>
+          <div class="field"><label for="womenPrice">Max price <span id="womenPriceOut"></span></label><input id="womenPrice" type="range" min="0" max="50000" step="500" /></div>
+          <button class="btn btn-outline" type="button" id="womenReset">Reset</button>
+        </div>
+        <p class="result-count" id="womenCount" aria-live="polite"></p>
+        <div class="card-grid" id="womenGrid"></div>
+        <div class="empty-state" id="womenEmpty" hidden><h3>No pieces match</h3><p>Try a different search, or reset the filters.</p></div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ 5. PRODUCT DETAILS ============ -->
+  <section class="page" id="page-product" aria-label="Product details">
+    <section class="section section-tight">
+      <div class="container" id="productView"></div>
+    </section>
+  </section>
+
+  <!-- ============ 6. WISHLIST ============ -->
+  <section class="page" id="page-wishlist" aria-label="Wishlist">
+    <section class="section section-tight">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Saved pieces</p>
+            <h1 class="page-title">Your Wishlist</h1>
+          </div>
+          <p class="muted" id="wishSummary"></p>
+        </div>
+        <div class="card-grid" id="wishGrid"></div>
+        <div class="empty-state" id="wishEmpty" hidden>
+          <h3>Nothing saved yet</h3>
+          <p>Tap the heart on any piece to keep it here.</p>
+          <a class="btn btn-primary" href="#/shop">Explore the collection</a>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ 7. CART & CHECKOUT DEMO ============ -->
+  <section class="page" id="page-cart" aria-label="Shopping bag and checkout">
+    <section class="section section-tight">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Your bag</p>
+            <h1 class="page-title">Bag &amp; Checkout</h1>
+          </div>
+          <p class="muted">Demo checkout. No payment is taken.</p>
+        </div>
+
+        <div class="empty-state" id="cartEmpty" hidden>
+          <h3>Your bag is empty</h3>
+          <p>Discover pieces made to be kept.</p>
+          <a class="btn btn-primary" href="#/shop">Start shopping</a>
+        </div>
+
+        <div class="cart-layout" id="cartLayout" hidden>
+          <ul class="cart-list" id="cartList" aria-label="Items in your bag"></ul>
+
+          <aside class="summary" aria-label="Order summary">
+            <h2 class="summary-title">Order summary</h2>
+            <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">₹0</span></div>
+            <div class="summary-row" id="sumDiscountRow" hidden><span id="sumDiscountLabel">Discount</span><span id="sumDiscount">₹0</span></div>
+            <div class="summary-row"><span>Shipping</span><span id="sumShipping">₹0</span></div>
+            <div class="summary-row total"><span>Estimated total</span><span id="sumTotal">₹0</span></div>
+
+            <div class="discount-row">
+              <label class="sr-only" for="discountInput">Discount code</label>
+              <input id="discountInput" type="text" placeholder="Discount code" autocomplete="off" />
+              <button class="btn btn-outline" type="button" data-action="apply-discount">Apply</button>
+            </div>
+            <p class="form-msg" id="discountMsg" aria-live="polite"></p>
+            <button class="link-btn" type="button" data-action="remove-discount" id="discountRemove" hidden>Remove discount</button>
+
+            <button class="btn btn-primary btn-block" type="button" data-action="checkout" id="checkoutBtn">Proceed to demo checkout</button>
+            <p class="fine-print">Demo only: codes LUXE10 and WELCOME15 are sample codes. Shipping is free above ₹5,000.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ 8. ABOUT & CONTACT ============ -->
+  <section class="page" id="page-about" aria-label="About and contact">
+    <header class="page-banner">
+      <img src="https://images.unsplash.com/photo-1560243563-062bfc001d68?auto=format&fit=crop&w=1800&q=80" alt="" />
+      <div class="banner-overlay"></div>
+      <div class="container banner-content">
+        <p class="eyebrow">About MAISON NOIR</p>
+        <h1>Craft, Patience, Permanence</h1>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="container split">
+        <div class="reveal">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80" alt="Model in a sculpted evening dress" loading="lazy" />
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Brand story</p>
+          <h2>A Studio, Not a Factory</h2>
+          <p class="lead">We design in small runs, in our own studio, and work with mills that share our obsession with fibre quality. This is a demonstration site: the brand, products and prices are fictional.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal"><div><p class="eyebrow">Mission</p><h2>What We Believe</h2></div></div>
+        <div class="values">
+          <article class="value-card reveal"><h3>Fewer, better</h3><p>Small collections, drafted carefully, designed to replace the impulse with the keeper.</p></article>
+          <article class="value-card reveal"><h3>Honest materials</h3><p>Natural fibres, transparent sourcing notes and construction built to be repaired.</p></article>
+          <article class="value-card reveal"><h3>Made to be altered</h3><p>Hems, seams and linings designed so that a garment can change shape with you.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split split-top">
+        <div class="reveal">
+          <p class="eyebrow">Support</p>
+          <h2>Frequently Asked</h2>
+          <div class="faq">
+            <details>
+              <summary>How do sizes fit?</summary>
+              <p>Tailored pieces run true to size with a structured shoulder. Knitwear is cut slightly relaxed. Check the size guide on each product.</p>
+            </details>
+            <details>
+              <summary>What is your returns policy?</summary>
+              <p>This demo describes a 14-day return window for unworn pieces. A live store would show its full terms here.</p>
+            </details>
+            <details>
+              <summary>Do you offer alterations?</summary>
+              <p>Yes, in the live concept, hems and minor tailoring are offered through our studio. This is a demo, so no service is booked.</p>
+            </details>
+            <details>
+              <summary>Is my payment real on this site?</summary>
+              <p>No. Checkout is a front-end demonstration. No payment is taken and no order is placed.</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Speak With Our Studio</h2>
+          <p class="muted">Concierge (demo): <a href="mailto:concierge@maison-noir.example">concierge@maison-noir.example</a><br />Hours (demo): Monday to Saturday, 10:00 to 19:00 IST</p>
+          <form class="form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cName">Full name</label>
+              <input id="cName" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="form-field">
+              <label for="cEmail">Email</label>
+              <input id="cEmail" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="form-field">
+              <label for="cTopic">Topic</label>
+              <select id="cTopic" name="topic">
+                <option>Order enquiry</option>
+                <option>Sizing advice</option>
+                <option>Styling appointment</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="cMessage">Message</label>
+              <textarea id="cMessage" name="message" rows="5" required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-msg" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container narrow reveal">
+        <p class="eyebrow">Newsletter</p>
+        <h2>Join the Private List</h2>
+        <p class="lead">Early access to new edits. Demo only: no emails are sent.</p>
+        <form class="form form-inline newsletter-form" novalidate>
+          <label class="sr-only" for="nlAbout">Email address</label>
+          <input id="nlAbout" type="email" placeholder="Your email address" required />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+          <p class="form-msg" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="logo" href="#/home"><span class="logo-mark" aria-hidden="true">✦</span>MAISON NOIR</a>
+      <p class="muted">A luxury clothing demo storefront. Fictional brand, sample products and simulated checkout.</p>
+    </div>
+    <nav aria-label="Shop links">
+      <h4>Shop</h4>
+      <a href="#/men">Men</a>
+      <a href="#/women">Women</a>
+      <a href="#/shop?cat=Accessories">Accessories</a>
+      <a href="#/shop?cat=Footwear">Footwear</a>
+    </nav>
+    <nav aria-label="Help links">
+      <h4>Help</h4>
+      <a href="#/about">FAQs</a>
+      <a href="#/about">Contact</a>
+      <a href="#/cart">Bag</a>
+      <a href="#/wishlist">Wishlist</a>
+    </nav>
+    <div>
+      <h4>Newsletter</h4>
+      <form class="form newsletter-form" novalidate>
+        <label class="sr-only" for="nlFooter">Email address</label>
+        <input id="nlFooter" type="email" placeholder="Email address" required />
+        <button class="btn btn-primary btn-block" type="submit">Subscribe</button>
+        <p class="form-msg" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+  <div class="container footer-base">
+    <span>© 2026 MAISON NOIR (demo). Prices in Indian rupees (₹).</span>
+    <span>Demo features: no real payments or orders.</span>
+  </div>
+</footer>
+
+<!-- Modal & toasts -->
+<div class="modal-backdrop" id="modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="icon-btn modal-close" type="button" data-action="modal-close" aria-label="Close dialog">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
